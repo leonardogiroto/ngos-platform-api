@@ -16,7 +16,9 @@
     "trailing-comma": false,
     "array-type": false,
     "variable-name": false,
-    "no-console": false
+    "no-console": false,
+    "max-classes-per-file": false,
+    "curly": false
   },
   "rulesDirectory": []
 }

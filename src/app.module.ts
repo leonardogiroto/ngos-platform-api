@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { NgoModule } from './ngo/ngo.module';
 
 @Module({
@@ -17,12 +15,6 @@ import { NgoModule } from './ngo/ngo.module';
       synchronize: true,
     }),
     NgoModule
-  ],
-  controllers: [
-    AppController
-  ],
-  providers: [
-    AppService
-  ],
+  ]
 })
 export class AppModule {}
