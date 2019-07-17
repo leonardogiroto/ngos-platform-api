@@ -19,6 +19,7 @@ async function bootstrap() {
   Sentry.init({ dsn: 'https://73212067ddda4160bb1052ee0411058e@sentry.io/1506604' });
   app.useGlobalFilters( new ExceptionsFilter() );
 
-  await app.listen(3000);
+  app.enableCors();
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
