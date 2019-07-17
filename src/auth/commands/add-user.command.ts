@@ -1,8 +1,8 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/user/entities/user.entity';
 import { BadRequestException } from '@nestjs/common';
+import { User } from '../../user/entities/user.entity';
 
 export class AddUserCommand {
   constructor(

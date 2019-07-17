@@ -3,8 +3,8 @@ import { UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/user/entities/user.entity';
 import * as crypto from 'crypto';
+import { User } from '../../user/entities/user.entity';
 
 export class LoginCommand {
   constructor(

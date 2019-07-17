@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AuthController } from './auth.controller';
-import { User } from 'src/user/entities/user.entity';
 import { CommandHandlers } from './commands/_index';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { User } from '../user/entities/user.entity';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
