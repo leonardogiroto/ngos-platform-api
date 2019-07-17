@@ -8,11 +8,11 @@ import { ExceptionsFilter } from './shared/http-exception.filter';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'us-cdbr-iron-east-02.cleardb.net',
+      host: process.env.CLEARDB_HOST,
       port: 3306,
-      username: 'bd7de87cd48d9b',
-      password: '223eebf2',
-      database: 'heroku_b76067d1583b749',
+      username: process.env.CLEARDB_USERNAME,
+      password: process.env.CLEARDB_PASSWORD,
+      database: process.env.CLEARDB_DATABASE,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

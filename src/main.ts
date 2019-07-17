@@ -16,7 +16,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  Sentry.init({ dsn: 'https://73212067ddda4160bb1052ee0411058e@sentry.io/1506604' });
+  Sentry.init({ dsn: process.env.SENTRY_CONFIG_URL });
   app.useGlobalFilters( new ExceptionsFilter() );
 
   app.enableCors();
