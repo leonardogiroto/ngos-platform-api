@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { NgoModule } from './ngo/ngo.module';
 import { APP_FILTER } from '@nestjs/core';
 import { ExceptionsFilter } from './shared/http-exception.filter';
+import { AuthModule } from './auth/auth.module';
 
 import * as dotenv from 'dotenv';
 
@@ -20,6 +21,7 @@ dotenv.config();
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    AuthModule,
     NgoModule
   ],
   providers: [{

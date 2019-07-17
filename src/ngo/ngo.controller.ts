@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Put, Delete, Res, HttpStatus, Param, Query } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Put, Delete, Res, HttpStatus, Param, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListNgosQuery } from './queries/list-ngos.query';
 import { AddNgoCommand } from './commands/add-ngo.command';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('ngo')
 export class NgoController {
 
@@ -11,8 +12,6 @@ export class NgoController {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus
   ) { }
-
-  // TODO: HANDLE AUTHENTICATION
 
   @Get()
   public async getAllOngs(
@@ -35,7 +34,6 @@ export class NgoController {
     return '';
   }
 
-  // @ApiBearerAuth()
   @Post()
   public async addOng(
     @Body() request: AddNgoCommand,
