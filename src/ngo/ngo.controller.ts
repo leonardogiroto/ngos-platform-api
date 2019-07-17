@@ -12,25 +12,20 @@ export class NgoController {
     private readonly queryBus: QueryBus
   ) { }
 
+  // TODO: HANDLE AUTHENTICATION
+
   @Get()
   public async getAllOngs(
     @Query() request: ListNgosQuery,
     @Res() response
   ) {
-    try {
-      const ngos = await this.queryBus.execute(
-        new ListNgosQuery(
-          request.page,
-          request.pageSize
-        )
-      );
-      response.status(HttpStatus.OK).json(ngos);
-    } catch (error) {
-      // TODO: GENERAL ERROR HANDLING AND LOGGING
-      // TODO: HANDLE AUTHENTICATION
-      console.error(error);
-      response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
-    }
+    const ngos = await this.queryBus.execute(
+      new ListNgosQuery(
+        request.page,
+        request.pageSize
+      )
+    );
+    response.status(HttpStatus.OK).json(ngos);
   }
 
   @Get(':id')
@@ -46,22 +41,13 @@ export class NgoController {
     @Body() request: AddNgoCommand,
     @Res() response
   ): Promise<void> {
-
-    try {
-      const newNgo = await this.commandBus.execute(
-        new AddNgoCommand(
-          request.name,
-          request.description
-        )
-      );
-      response.status(HttpStatus.CREATED).json(newNgo);
-
-    } catch (error) {
-      console.error(error);
-      response.status(
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      ).json(error);
-    }
+    const newNgo = await this.commandBus.execute(
+      new AddNgoCommand(
+        request.name,
+        request.description
+      )
+    );
+    response.status(HttpStatus.CREATED).json(newNgo);
   }
 
   @Put(':id')

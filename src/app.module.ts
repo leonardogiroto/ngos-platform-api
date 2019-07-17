@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NgoModule } from './ngo/ngo.module';
+import { APP_FILTER } from '@nestjs/core';
+import { ExceptionsFilter } from './shared/http-exception.filter';
 
 @Module({
   imports: [
@@ -15,6 +17,10 @@ import { NgoModule } from './ngo/ngo.module';
       synchronize: true,
     }),
     NgoModule
-  ]
+  ],
+  providers: [{
+    provide: APP_FILTER,
+    useClass: ExceptionsFilter
+  }]
 })
-export class AppModule {}
+export class AppModule { }

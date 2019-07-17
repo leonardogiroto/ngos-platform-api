@@ -1,6 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as Sentry from '@sentry/node';
+
 import { AppModule } from './app.module';
+import { ExceptionsFilter } from './shared/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +15,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
+
+  Sentry.init({ dsn: 'https://73212067ddda4160bb1052ee0411058e@sentry.io/1506604' });
+  app.useGlobalFilters( new ExceptionsFilter() );
 
   await app.listen(3000);
 }
