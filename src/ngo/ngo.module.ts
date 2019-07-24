@@ -4,8 +4,8 @@ import { CqrsModule } from '@nestjs/cqrs';
 
 import { NgoController } from './ngo.controller';
 import { Ngo } from './entities/ngo.entity';
-import { QueryHandlers } from './queries';
-import { CommandHandlers } from './commands';
+import { QueryHandlers } from './queries/_index';
+import { CommandHandlers } from './commands/_index';
 
 @Module({
   imports: [

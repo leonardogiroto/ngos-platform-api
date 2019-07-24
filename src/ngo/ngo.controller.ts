@@ -3,6 +3,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListNgosQuery } from './queries/list-ngos.query';
 import { AddNgoCommand } from './commands/add-ngo.command';
+import { GetNgoByIdQuery } from './queries/get-byId.query';
+import { DeleteNgoCommand } from './commands/delete-ngo.command';
+import { UpdateNgoCommand } from './commands/update-ngo.command';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('ngo')
@@ -27,11 +30,17 @@ export class NgoController {
     response.status(HttpStatus.OK).json(ngos);
   }
 
+  // TODO: IMPLEMENT UNIT TESTING
+
   @Get(':id')
-  public getOngById(
-    @Param('id') ngoId: number
-  ): string {
-    return '';
+  public async getOngById(
+    @Param('id') ngoId: number,
+    @Res() response
+  ) {
+    const ngo = await this.queryBus.execute(
+      new GetNgoByIdQuery( ngoId )
+    );
+    response.status(HttpStatus.OK).json(ngo);
   }
 
   @Post()
@@ -48,16 +57,30 @@ export class NgoController {
     response.status(HttpStatus.CREATED).json(newNgo);
   }
 
-  @Put(':id')
-  public updateOng(
-    @Body() request
-  ): string {
-    return '';
+  @Put()
+  public async updateOng(
+    @Body() request: UpdateNgoCommand,
+    @Res() response
+  ) {
+    const ngo = await this.commandBus.execute(
+      new UpdateNgoCommand(
+        request.id,
+        request.name,
+        request.description
+      )
+    );
+    response.status(HttpStatus.OK).json(ngo);
   }
 
   @Delete(':id')
-  public deleteOng(): string {
-    return '';
+  public async deleteOng(
+    @Param('id') ngoId: number,
+    @Res() response
+  ) {
+    await this.commandBus.execute(
+      new DeleteNgoCommand( ngoId )
+    );
+    response.status(HttpStatus.OK).json();
   }
 
 }
