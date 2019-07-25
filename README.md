@@ -29,7 +29,7 @@ npm run start
 npm run start:prod
 ```
 
-## Documentação
+## Documentation
 
 Created with Swagger:  
 https://ngos-platform-api.herokuapp.com/api/
