@@ -30,8 +30,6 @@ export class NgoController {
     response.status(HttpStatus.OK).json(ngos);
   }
 
-  // TODO: IMPLEMENT UNIT TESTING
-
   @Get(':id')
   public async getOngById(
     @Param('id') ngoId: number,
